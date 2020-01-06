@@ -2,7 +2,6 @@ require 'sinatra/activerecord'
 require 'sinatra/flash'
 require 'sinatra'
 require './model'
-# require './post_model'
 
 set :port, 3000
 set :database, {adapter: "postgresql", database: "social_database", username: 'postgres', password: ENV['POSTGRES_PW']}
