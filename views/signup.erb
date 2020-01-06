@@ -1,0 +1,11 @@
+<h1>Sign Up</h1>
+<% if flash[:error]%>
+<%= flash[:error]%>
+<% end %>
+<form class="User"  action="/signup" method="post">
+<input type="text" placeholder="Enter Your First Name" name="user[name]"><br>
+<input type="email" placeholder="Enter Email" name="user[email]"><br>
+<input type="password" placeholder="Create Password" name="user[password]"><br>
+<input type="text" placeholder="Enter Birthday" name="user[birthday]"><br>
+<input type="submit"  value="submit"><br>
+</form>

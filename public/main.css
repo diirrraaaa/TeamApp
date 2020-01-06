@@ -1,0 +1,25 @@
+body{
+background-image: url('bg.gif');
+background-repeat: no-repeat;
+background-size: 1400px 700px;
+}
+img{
+position: absolute;
+left: 0px;
+top: 0px;
+
+}
+ul {
+list-style-type: none;
+word-spacing: 2em;
+font-size:30px;
+position: absolute;
+top: 0px;
+right: 100px;
+text-decoration: none;
+}
+
+li {
+display: inline;
+color: white;
+}
