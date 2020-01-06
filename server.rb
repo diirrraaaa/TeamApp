@@ -4,7 +4,7 @@ require 'sinatra'
 require './model'
 
 set :port, 3000
-set :database, {adapter: "postgresql", database: "social_database", username: 'postgres', password: ENV['POSTGRES_PW']}
+set :database, {adapter: "postgresql", database: "social_database", username: 'postgres', password: ENV['POSTGRES_PW'], port: '9000'}
 enable :sessions
 
 get '/' do
