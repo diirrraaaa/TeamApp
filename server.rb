@@ -2,10 +2,10 @@ require 'sinatra/activerecord'
 require 'sinatra/flash'
 require 'sinatra'
 require './model'
-require './post_model'
+# require './post_model'
 
 set :port, 3000
-set :database, {adapter: "sqlite3", database: "doggly2.sqlite3"}
+set :database, {adapter: "postgresql", database: "social_database", username: 'postgres', password: ENV['POSTGRES_PW']}
 enable :sessions
 
 get '/' do
