@@ -33,18 +33,16 @@ get '/signup' do
   erb :signup
 end
 post '/signup' do
-  @user = User.new(params[:user][:name])
-  @user = User.new(params[:user][:email])
-  @user = User.new(params[:user][:password])
-  @user = User.new(params[:user][:birthday])
+  p params
+  @user = User.new(params[:user])
  if @user.valid?
    @user.save
+   session[:user_id] = @user.id
    redirect:'/profile'
  else
   flash[:error] = @user.errors.full_messages;
   redirect:'/signup'
  end
- p params
 end
 
 
@@ -56,18 +54,38 @@ get '/NewPost' do
   erb :submit
 end
 
-get '/NewPost' do
-  @Submission = Submission.new(params[:Submission])
-   if @Submission.save
-   session[:new_post] = Submission.image
-    redirect:'/profile'
-  else
-    flash[:error] = "Sorry! Your post failed to upload!"
-    redirect:'/submit'
-
- end
-  p params
+get '/posts' do
+  @posts = Post.all
+  erb :posts
 end
+
+get '/posts/new' do
+  # erb should have a form passing in the title and content only!! to the /posts route with a POST method
+  erb :new_post 
+end
+
+post '/posts' do
+
+  # check if session user_id is valid, otherwise redirect to login
+
+  # if they are logged in,
+  # create a new post with the params as its values but also get the user_id value from session["user_id"]
+  # save and redirect to the posts page
+end
+
+
+# get '/NewPost' do
+#   @Submission = Submission.new(params[:Submission])
+#    if @Submission.save
+#    session[:new_post] = Submission.image
+#     redirect:'/profile'
+#   else
+#     flash[:error] = "Sorry! Your post failed to upload!"
+#     redirect:'/submit'
+
+#  end
+#   p params
+# end
 
 
 get'/logout' do
