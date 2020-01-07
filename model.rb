@@ -2,16 +2,12 @@ class User < ActiveRecord::Base
     validates :name, :password, presence: true
     validates :email, uniqueness: true
     validates :password, length: {minimum: 5, maximum: 8}
+    validates_inclusion_of :birthday, :in => Date.new(1900)..Time.now.years_ago(18).to_date,
+    :message => 'Too young, dude!'
+
+    has_many :posts
 end
 
-class CreatePost < ActiveRecord::Migration
-    def change
-      create_table :post do |t|
-        t.VARCHAR :post # we will change this to t.string :role\
-        t.image   :image
-        t.references :user
-        t.timestamps
-      end
-    end
-  end
-  
+class Post < ActiveRecord::Base
+  belongs_to :user
+end

@@ -33,7 +33,10 @@ get '/signup' do
   erb :signup
 end
 post '/signup' do
-  @user = User.new(params[:user])
+  @user = User.new(params[:user][:name])
+  @user = User.new(params[:user][:email])
+  @user = User.new(params[:user][:password])
+  @user = User.new(params[:user][:birthday])
  if @user.valid?
    @user.save
    redirect:'/profile'
@@ -47,7 +50,6 @@ end
 
 
 get '/profile' do
-
 erb :profile
  end
 get '/NewPost' do

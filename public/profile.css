@@ -1,0 +1,27 @@
+body{
+    background-color:white;
+    }
+    
+    img{
+        position: absolute;
+        left: 0px;
+        top: 0px;
+       
+    }
+    h3{
+    margin-top: 117px;
+    }
+    ul {
+      list-style-type: none;
+    word-spacing: 2em;
+    font-size:30px;
+     position: absolute;
+      top: 0px;
+     right: 90px;
+     text-decoration: none;
+    }
+    
+    li {
+      display: inline;
+      color: white;
+    }

@@ -1,2 +1,23 @@
-<h1>welcome to your profile <%=session[:user_name] %></h1>
+<!DOCTYPE html>
+<html>  
+<head>
+ <link rel="stylesheet" href="profile.css">
+ <div id="logo">
+        <img src="Team App.png" alt="logo" style=" width: 100px; height:100px">
+ 
+    </div>
+    <div id="nav">
+    <ul>
+     <li><a href="/"style="color: #0552f7">Home</a></li>
+     <li><a href="/profile"style="color: #0552f7">Profile</a></li>
+      <li><a href="/signup"style="color: #0552f7">SignUp</a></li>
+     <li><a href="/login"style="color: #0552f7">LogIn</a></li>
+    </ul>
+    </div>
+
+<h3>welcome to your profile <%=session[:user_name] %></h3>
 <p><%=session[:new_post] %></p>
+</head>
+<body>
+</body>
+</html>
