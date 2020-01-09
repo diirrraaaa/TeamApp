@@ -15,12 +15,12 @@ get '/login' do
   erb :login
 end
 
-get'/login' do
+post'/login' do
   @user = User.find_by(email: params[:email])
-  given_password = params[:password]
-  if user.password. == given_password
-    session[:user_id] = user.id
-    session[:user_name] = user.name
+  @given_password = params[:password]
+  if @user.password == @given_password
+    session[:user_id] = @user.id
+    session[:user_name] = @user.name
     redirect '/profile'
   else
     flash[:error] = "Correct email, but wrong password. Did you mean: #{user.password}?\
@@ -29,9 +29,11 @@ get'/login' do
  end
 end
 
+
 get '/signup' do
   erb :signup
 end
+
 post '/signup' do
   p params
   @user = User.new(params[:user])
@@ -45,13 +47,20 @@ post '/signup' do
  end
 end
 
-
-
-get '/profile' do
+get'/profile' do
+  @posts = Post.all
+  erb :profile
+end
+post '/profile' do
+  if session[:user_id]
 erb :profile
  end
-get '/NewPost' do
-  erb :submit
+end
+
+post '/profile/:name' do
+    @user = User.find_by(email: session[:user_email])
+    redirect %(/profile#{session[:name]})
+erb :profile
 end
 
 get '/posts' do
@@ -59,34 +68,17 @@ get '/posts' do
   erb :posts
 end
 
-get '/posts/new' do
-  # erb should have a form passing in the title and content only!! to the /posts route with a POST method
-  erb :new_post 
-end
-
 post '/posts' do
-
-  # check if session user_id is valid, otherwise redirect to login
-
-  # if they are logged in,
-  # create a new post with the params as its values but also get the user_id value from session["user_id"]
-  # save and redirect to the posts page
+@post = Post.new(title: params[:title], content: params[:content], user_id: session[:user_id])
+  if @post.valid?
+      pp @post
+      @post.save
+      redirect '/posts'
+  else
+      flash[:errors] = @post.errors.full_messages
+      redirect '/posts'
+  end
 end
-
-
-# get '/NewPost' do
-#   @Submission = Submission.new(params[:Submission])
-#    if @Submission.save
-#    session[:new_post] = Submission.image
-#     redirect:'/profile'
-#   else
-#     flash[:error] = "Sorry! Your post failed to upload!"
-#     redirect:'/submit'
-
-#  end
-#   p params
-# end
-
 
 get'/logout' do
   session[:user_id] = nil

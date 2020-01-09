@@ -5,27 +5,31 @@
 <link rel="stylesheet" href="profile.css">
  <div id="logo">
         <img src="Team App.png" alt="logo" style=" width: 100px; height:100px">
+
     </div>
   <div id="nav">
 <ul>
  <li><a href="/"style="color: #0552f7">Home</a></li>
-   <% if !session[:user_id] %>
+  <% if !session[:user_id] %>
  <li><a href="/profile"style="color: #0552f7">Profile</a></li>
   <li><a href="/signup"style="color: #0552f7">SignUp</a></li>
-  <% end %>
-  <% if session[:user_id] %>
+ <li><a href="/login"style="color: #0552f7">LogIn</a></li>
+ <% end %>
+ <% if session[:user_id] %>
  <li><a href="/logout"style="color: #0552f7">LogOut</a></li>
 <li><a href="/posts"style="color: #0552f7">Posts</a></li>
 </ul>
 </div>
-  <% end %>
+ <% end %>
 
-
-<div id="form">
-<h1>Login</h1>
-<form class="login" action="/login" method="post">
-  <input type="email" name="email" placeholder="email"><br>
-  <input type="password" name="password" placeholder="password"><br>
-  <input type="submit" value="submit" action="/login"><br>
+<form class="post" action="/posts" method="post">
+  <input type="text" name="title" placeholder=" Title"><br>
+  <input type="text" name="content" placeholder="Content"><br>
+  <input type="submit"  value="submit"><br>
 </form>
-</div>
+
+<% @posts.each do |post| %>
+<%= post.title %>
+<%= post.content %>
+<%= post.user.name %>
+<% end %>

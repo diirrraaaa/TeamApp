@@ -1,23 +1,35 @@
 <!DOCTYPE html>
-<html>  
+<html>
 <head>
  <link rel="stylesheet" href="profile.css">
  <div id="logo">
         <img src="Team App.png" alt="logo" style=" width: 100px; height:100px">
- 
+
     </div>
     <div id="nav">
     <ul>
-     <li><a href="/"style="color: #0552f7">Home</a></li>
-     <li><a href="/profile"style="color: #0552f7">Profile</a></li>
-      <li><a href="/signup"style="color: #0552f7">SignUp</a></li>
-     <li><a href="/login"style="color: #0552f7">LogIn</a></li>
+      <li><a href="/"style="color: #0552f7">Home</a></li>
+         <% if !session[:user_id] %>
+      <li><a href="/profile"style="color: #0552f7">Profile</a></li>
+       <li><a href="/signup"style="color: #0552f7">SignUp</a></li>
+      <li><a href="/login"style="color: #0552f7">LogIn</a></li>
+      <% end %>
+      <% if session[:user_id] %>
+      <li><a href="/logout"style="color: #0552f7">LogOut</a></li>
+     <li><a href="/posts"style="color: #0552f7">Posts</a></li>
     </ul>
     </div>
+      <% end %>
 
-<h3>welcome to your profile <%=session[:user_name] %></h3>
-<p><%=session[:new_post] %></p>
+<h3>welcome to your profile <%=session[:user] %></h3>
+<% @posts.each do |post| %>
+<%= post.title %>
+<%= post.content %>
+<%= post.user.name %>
+<% end %>
+<!-- <p><%=session[:posts] %></p> -->
 </head>
 <body>
+
 </body>
 </html>

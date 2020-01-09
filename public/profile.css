@@ -1,12 +1,12 @@
 body{
     background-color:white;
     }
-    
+
     img{
         position: absolute;
         left: 0px;
         top: 0px;
-       
+
     }
     h3{
     margin-top: 117px;
@@ -20,8 +20,11 @@ body{
      right: 90px;
      text-decoration: none;
     }
-    
+
     li {
       display: inline;
       color: white;
+    }
+    form{
+      margin-top: 100px;
     }

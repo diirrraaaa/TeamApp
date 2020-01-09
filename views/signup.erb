@@ -8,12 +8,18 @@
     </div>
     <div id="nav">
     <ul>
-     <li><a href="/"style="color: #0552f7">Home</a></li>
-     <li><a href="/profile"style="color: #0552f7">Profile</a></li>
-      <li><a href="/signup"style="color: #0552f7">SignUp</a></li>
-     <li><a href="/login"style="color: #0552f7">LogIn</a></li>
+      <li><a href="/"style="color: #0552f7">Home</a></li>
+        <% if !session[:user_id] %>
+      <li><a href="/profile"style="color: #0552f7">Profile</a></li>
+       <li><a href="/signup"style="color: #0552f7">SignUp</a></li>
+      <li><a href="/login"style="color: #0552f7">LogIn</a></li>
+      <% end %>
+      <% if session[:user_id] %>
+      <li><a href="/logout"style="color: #0552f7">LogOut</a></li>
+     <li><a href="/posts"style="color: #0552f7">Posts</a></li>
     </ul>
     </div>
+      <% end %>
 <div id="form2">
 <form class="User"  action="/signup" method="post">
 <input type="text" placeholder="Enter Your First Name" name="user[name]"><br>
