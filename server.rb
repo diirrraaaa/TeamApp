@@ -48,7 +48,6 @@ post '/signup' do
 end
 
 get'/profile' do
-  @posts = Post.all
   erb :profile
 end
 post '/profile' do
@@ -79,8 +78,20 @@ post '/posts' do
       redirect '/posts'
   end
 end
+get '/delete' do
+    erb :delete
+end
+
+post '/delete' do
+    @user = User.find_by(email: session[:user_email])
+    if session[:user_email] == params[:email]
+        # @user.destroy
+        redirect '/login'
+    end
+end
 
 get'/logout' do
   session[:user_id] = nil
+  session[:user_name] = nil
   redirect'/'
 end

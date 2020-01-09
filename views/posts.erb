@@ -10,8 +10,8 @@
   <div id="nav">
 <ul>
  <li><a href="/"style="color: #0552f7">Home</a></li>
-  <% if !session[:user_id] %>
  <li><a href="/profile"style="color: #0552f7">Profile</a></li>
+   <% if !session[:user_id] %>
   <li><a href="/signup"style="color: #0552f7">SignUp</a></li>
  <li><a href="/login"style="color: #0552f7">LogIn</a></li>
  <% end %>

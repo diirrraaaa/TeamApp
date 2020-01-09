@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
     validates_inclusion_of :birthday, :in => Date.new(1900)..Time.now.years_ago(18).to_date,
     :message => 'Too young, dude!'
 
-    has_many :posts
+    has_many :posts, dependent: :destroy
 end
 
 class Post < ActiveRecord::Base

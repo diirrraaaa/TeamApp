@@ -21,15 +21,12 @@
     </div>
       <% end %>
 
-<h3>welcome to your profile <%=session[:user] %></h3>
-<% @posts.each do |post| %>
-<%= post.title %>
-<%= post.content %>
-<%= post.user.name %>
-<% end %>
-<!-- <p><%=session[:posts] %></p> -->
+<h3>welcome to your profile <%=session[:user_name] %></h3>
+<%=session[:posts] %>
 </head>
 <body>
-
+  <form method="post" action="/delete">
+      <button type="submit">DEACTIVATE ACCOUNT</button>
+  </form>
 </body>
 </html>
