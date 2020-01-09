@@ -1,0 +1,35 @@
+<% if flash[:error]%>
+<%= flash[:error]%>
+<% end %>
+
+<link rel="stylesheet" href="profile.css">
+ <div id="logo">
+        <img src="Team App.png" alt="logo" style=" width: 100px; height:100px">
+
+    </div>
+  <div id="nav">
+<ul>
+ <li><a href="/"style="color: #0552f7">Home</a></li>
+ <li><a href="/profile"style="color: #0552f7">Profile</a></li>
+   <% if !session[:user_id] %>
+  <li><a href="/signup"style="color: #0552f7">SignUp</a></li>
+ <li><a href="/login"style="color: #0552f7">LogIn</a></li>
+ <% end %>
+ <% if session[:user_id] %>
+ <li><a href="/logout"style="color: #0552f7">LogOut</a></li>
+<li><a href="/posts"style="color: #0552f7">Posts</a></li>
+</ul>
+</div>
+ <% end %>
+
+<form class="post" action="/posts" method="post">
+  <input type="text" name="title" placeholder=" Title"><br>
+  <input type="text" name="content" placeholder="Content"><br>
+  <input type="submit"  value="submit"><br>
+</form>
+
+<% @posts.each do |post| %>
+<%= post.title %>
+<%= post.content %>
+<%= post.user.name %>
+<% end %>

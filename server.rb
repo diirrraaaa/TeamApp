@@ -2,10 +2,9 @@ require 'sinatra/activerecord'
 require 'sinatra/flash'
 require 'sinatra'
 require './model'
-require './post_model'
 
 set :port, 3000
-set :database, {adapter: "sqlite3", database: "doggly2.sqlite3"}
+set :database, {adapter: "postgresql", database: "social_database", username: 'postgres', password: ENV['POSTGRES_PW'], port: '9000'}
 enable :sessions
 
 get '/' do
@@ -16,12 +15,12 @@ get '/login' do
   erb :login
 end
 
-get'/login' do
+post'/login' do
   @user = User.find_by(email: params[:email])
-  given_password = params[:password]
-  if user.password. == given_password
-    session[:user_id] = user.id
-    session[:user_name] = user.name
+  @given_password = params[:password]
+  if @user.password == @given_password
+    session[:user_id] = @user.id
+    session[:user_name] = @user.name
     redirect '/profile'
   else
     flash[:error] = "Correct email, but wrong password. Did you mean: #{user.password}?\
@@ -30,46 +29,69 @@ get'/login' do
  end
 end
 
+
 get '/signup' do
   erb :signup
 end
+
 post '/signup' do
+  p params
   @user = User.new(params[:user])
  if @user.valid?
    @user.save
+   session[:user_id] = @user.id
    redirect:'/profile'
  else
   flash[:error] = @user.errors.full_messages;
   redirect:'/signup'
  end
- p params
 end
 
-
-
-get '/profile' do
-
+get'/profile' do
+  erb :profile
+end
+post '/profile' do
+  if session[:user_id]
 erb :profile
  end
-get '/NewPost' do
-  erb :submit
 end
 
-get '/NewPost' do
-  @Submission = Submission.new(params[:Submission])
-   if @Submission.save
-   session[:new_post] = Submission.image
-    redirect:'/profile'
+post '/profile/:name' do
+    @user = User.find_by(email: session[:user_email])
+    redirect %(/profile#{session[:name]})
+erb :profile
+end
+
+get '/posts' do
+  @posts = Post.all
+  erb :posts
+end
+
+post '/posts' do
+@post = Post.new(title: params[:title], content: params[:content], user_id: session[:user_id])
+  if @post.valid?
+      pp @post
+      @post.save
+      redirect '/posts'
   else
-    flash[:error] = "Sorry! Your post failed to upload!"
-    redirect:'/submit'
-
- end
-  p params
+      flash[:errors] = @post.errors.full_messages
+      redirect '/posts'
+  end
+end
+get '/delete' do
+    erb :delete
 end
 
+post '/delete' do
+    @user = User.find_by(email: session[:user_email])
+    if session[:user_email] == params[:email]
+        # @user.destroy
+        redirect '/login'
+    end
+end
 
 get'/logout' do
   session[:user_id] = nil
+  session[:user_name] = nil
   redirect'/'
 end
